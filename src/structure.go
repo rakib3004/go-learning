@@ -4,20 +4,19 @@ import "fmt"
 
 type Person struct {
     Name   string
-    Age    int
-    Email  string
+    Id    string
+
 }
 
-func (p Person) introduce() {
-    fmt.Printf("Hi, my name is %s. I am %d years old. You can reach me at %s.\n", p.Name, p.Age, p.Email)
+func (p Person) intro() {
+    fmt.Printf("Intro of %s", p.Name)
 }
 
 func main() {
     person := Person{
-        Name:  "John Doe",
-        Age:   30,
-        Email: "john.doe@example.com",
+        Name:  "Rakib Trofder",
+        Id:   "a4b3c2012443",
     }
 
-    person.introduce()
+    person.intro()
 }
