@@ -24,48 +24,20 @@ public class PaintCanvas extends JPanel {
 
     public void setResizeCanvas(int updatedWidth, int updatedHeight){
         setPreferredSize(new Dimension(updatedWidth, updatedHeight));
+
     }
-
-    public void updatePreferredSize(PaintObject newObject) {
-        Rectangle objectBounds = newObject.getBoundingBox();
-        Dimension currentPreferredSize = getPreferredSize();
-        int newWidth = Math.max(currentPreferredSize.width, objectBounds.x + objectBounds.width);
-        int newHeight = Math.max(currentPreferredSize.height, objectBounds.y + objectBounds.height);
-
-        if (newWidth != currentPreferredSize.width || newHeight != currentPreferredSize.height) {
-            setPreferredSize(new Dimension(newWidth, newHeight));
-            revalidate();
-        }
-    }
-    public Dimension getPreferredSize() {
-        int extendedWidth = 3000;
-        int extendedHeight = 2400;
-        for (Object obj : paintObjects) {
-            PaintObject temp = (PaintObject) obj;
-            Rectangle newBounds = temp.getBoundingBox();
-            extendedWidth = Math.max(extendedWidth, newBounds.x + newBounds.width);
-            extendedHeight = Math.max(extendedHeight, newBounds.y + newBounds.height);
-        }
-        return new Dimension(extendedWidth, extendedHeight);
-    }
-
-
     public void paintComponent(Graphics g) {
         
 		((Graphics2D) g).addRenderingHints(
 			new java.awt.RenderingHints(
 				java.awt.RenderingHints.KEY_ANTIALIASING,
 				java.awt.RenderingHints.VALUE_ANTIALIAS_ON));
-
-        super.paintComponent(g);
-
-//        Rectangle clipBounds = g.getClipBounds();
-//        g.setColor(Color.white);
-//        g.fillRect((int)clipBounds.getX(), (int)clipBounds.getX(),
-//                    (int)clipBounds.getWidth(), (int)clipBounds.getHeight());
-
-
-
+        
+        Rectangle clipBounds = g.getClipBounds();
+        g.setColor(Color.white);
+        g.fillRect((int)clipBounds.getX(), (int)clipBounds.getX(), 
+                    (int)clipBounds.getWidth(), (int)clipBounds.getHeight());
+        
         Iterator paintObjectIterator = paintObjects.iterator();
         while(paintObjectIterator.hasNext())
 			try {
@@ -102,14 +74,13 @@ public class PaintCanvas extends JPanel {
     	repaint();
     	
     }
-
+    
     public void addPaintObject(PaintObject newObject) {
-
+        
         history.addElement(new Vector(paintObjects));
         paintObjects.addElement(newObject);
-       // updatePreferredSize(newObject);
         repaint();
-
+        
     }
     
     public void clear() {

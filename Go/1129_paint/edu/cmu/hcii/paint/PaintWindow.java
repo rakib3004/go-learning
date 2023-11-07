@@ -217,18 +217,14 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         canvas.setTemporaryObject(null);   
         canvas.addPaintObject(finalObject);
         actions.undoAction.setEnabled(true);
-//        canvasPane.revalidate();
-//        canvasPane.repaint();
         
     }
-
-
-
-    public void hoveringOverConstructionArea(PaintObject hoverObject) {
+    
+	public void hoveringOverConstructionArea(PaintObject hoverObject) {
 		
 		canvas.setHoveringObject(hoverObject);
 		
 	}
-
-
+    
+    
 }
