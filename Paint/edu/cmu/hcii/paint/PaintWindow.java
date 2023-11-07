@@ -26,7 +26,7 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         
         public void stateChanged(ChangeEvent changeEvent) {
             
-	        objectConstructor.setColor(new Color(rSlider.getValue(), gSlider.getValue(), gSlider.getValue()));
+	        objectConstructor.setColor(new Color(rSlider.getValue(), gSlider.getValue(), bSlider.getValue()));
             repaint();
             
         }
@@ -89,7 +89,7 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         rPanel = new JPanel(new FlowLayout());
         rPanel.setOpaque(false);
         rPanel.add(new JLabel("Red"));
-        rSlider = new JSlider(0, 255, 0);
+        rSlider = new JSlider(0, 255, 255);
         rSlider.setOpaque(false);
         rSlider.addChangeListener(colorChangeListener);
         rPanel.add(rSlider);
@@ -105,7 +105,7 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         bPanel = new JPanel(new FlowLayout());
         bPanel.setOpaque(false);
         bPanel.add(new JLabel("Blue"));
-        bSlider = new JSlider(0, 255, 0);
+        bSlider = new JSlider(0, 255, 85);
         bSlider.setOpaque(false);
         bSlider.addChangeListener(colorChangeListener);
         bPanel.add(bSlider);
@@ -150,7 +150,7 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         
         objectConstructor = new PaintObjectConstructor(this);
         objectConstructor.setClass(PencilPaint.class);
-        objectConstructor.setColor(new Color(0, 255, 0));
+        objectConstructor.setColor(new Color(100, 185, 250));
         objectConstructor.setThickness(5);        
         canvas.addMouseListener(objectConstructor);
         canvas.addMouseMotionListener(objectConstructor);
@@ -168,7 +168,7 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
 
     public void undo() { 
         
-        canvas.undo(); 
+        canvas.repaint();
         if(canvas.sizeOfHistory() == 0) actions.undoAction.setEnabled(false);
     
     }

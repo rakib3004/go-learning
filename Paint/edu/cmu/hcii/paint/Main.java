@@ -11,7 +11,7 @@ public class Main {
     }
 
     private static void createAndShowGUI() {
-        PaintWindow paintWindow = new PaintWindow(800, 600); // Adjust the initialWidth and initialHeight as needed
+        PaintWindow paintWindow = new PaintWindow(800, 600);
         paintWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
