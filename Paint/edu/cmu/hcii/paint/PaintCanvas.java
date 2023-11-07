@@ -26,27 +26,19 @@ public class PaintCanvas extends JPanel {
         setPreferredSize(new Dimension(updatedWidth, updatedHeight));
     }
 
-    public void updatePreferredSize(PaintObject newObject) {
-        Rectangle objectBounds = newObject.getBoundingBox();
-        Dimension currentPreferredSize = getPreferredSize();
-        int newWidth = Math.max(currentPreferredSize.width, objectBounds.x + objectBounds.width);
-        int newHeight = Math.max(currentPreferredSize.height, objectBounds.y + objectBounds.height);
 
-        if (newWidth != currentPreferredSize.width || newHeight != currentPreferredSize.height) {
-            setPreferredSize(new Dimension(newWidth, newHeight));
-            revalidate();
-        }
-    }
     public Dimension getPreferredSize() {
-        int extendedWidth = 3000;
-        int extendedHeight = 2400;
+        int runTimeWidth = 3000;
+        int runTimeHeight = 2400;
+
         for (Object obj : paintObjects) {
             PaintObject temp = (PaintObject) obj;
-            Rectangle newBounds = temp.getBoundingBox();
-            extendedWidth = Math.max(extendedWidth, newBounds.x + newBounds.width);
-            extendedHeight = Math.max(extendedHeight, newBounds.y + newBounds.height);
+            Rectangle additionalDimension = temp.getBoundingBox();
+            runTimeWidth = Math.max(runTimeWidth, additionalDimension.x + additionalDimension.width);
+            runTimeHeight = Math.max(runTimeHeight, additionalDimension.y + additionalDimension.height);
         }
-        return new Dimension(extendedWidth, extendedHeight);
+        Dimension extendedDimension =  new Dimension(runTimeWidth, runTimeHeight);
+         return extendedDimension;
     }
 
 
@@ -107,7 +99,6 @@ public class PaintCanvas extends JPanel {
 
         history.addElement(new Vector(paintObjects));
         paintObjects.addElement(newObject);
-       // updatePreferredSize(newObject);
         repaint();
 
     }
