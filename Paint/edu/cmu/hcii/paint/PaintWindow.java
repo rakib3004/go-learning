@@ -51,10 +51,14 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         actions = new Actions(this);
         
         setResizable(true);
-        
         setBackground(new Color(128, 10, 160));
+
+
+
         
         canvas = new PaintCanvas(initialWidth, initialHeight);
+        canvas.setPreferredSize(new Dimension(initialWidth, initialHeight));
+
         clearButton = new JButton(actions.clearAction);
         clearButton.setOpaque(false);
         undoButton = new JButton(actions.undoAction);
@@ -136,10 +140,22 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         controlPanel.add(clearUndoPanel);
         
         canvasPane = new JScrollPane(canvas);
-                
+
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(canvasPane, BorderLayout.CENTER);
         getContentPane().add(controlPanel, BorderLayout.WEST);
+
+
+
+//        canvasPane = new JScrollPane(canvas);
+//        canvasPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//        canvasPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//
+//        getContentPane().setLayout(new BorderLayout());
+//        getContentPane().add(canvasPane, BorderLayout.CENTER);
+//        getContentPane().add(controlPanel, BorderLayout.WEST);
+
+
         
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent event) {
@@ -150,7 +166,7 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
         
         objectConstructor = new PaintObjectConstructor(this);
         objectConstructor.setClass(PencilPaint.class);
-        objectConstructor.setColor(new Color(100, 185, 250));
+        objectConstructor.setColor(new Color(255, 255, 153));
         objectConstructor.setThickness(5);        
         canvas.addMouseListener(objectConstructor);
         canvas.addMouseMotionListener(objectConstructor);
@@ -166,9 +182,14 @@ public class PaintWindow extends JFrame implements PaintObjectConstructorListene
                 
     }
 
+    public void setCanvasPreferredSize(int width, int height) {
+        canvas.setPreferredSize(new Dimension(width, height));
+        canvas.revalidate();
+    }
+
     public void undo() { 
         
-        canvas.repaint();
+        canvas.undo();
         if(canvas.sizeOfHistory() == 0) actions.undoAction.setEnabled(false);
     
     }

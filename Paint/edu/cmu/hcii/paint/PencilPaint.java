@@ -36,8 +36,10 @@ public class PencilPaint extends PaintObject {
 			else if(y + thickness / 2 > maxY) maxY = y + thickness / 2;
             
 		}
-        
-		return new Rectangle(minX, minY, maxX - minX, maxY - minY);
+
+
+
+        return new Rectangle(minX, minY, maxX - minX, maxY - minY);
         
     }
     

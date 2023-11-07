@@ -21,7 +21,11 @@ public class PaintCanvas extends JPanel {
         history = new Vector();
         
     }
-    
+
+    public void setResizeCanvas(int updatedWidth, int updatedHeight){
+        setPreferredSize(new Dimension(updatedWidth, updatedHeight));
+
+    }
     public void paintComponent(Graphics g) {
         
 		((Graphics2D) g).addRenderingHints(
@@ -91,6 +95,7 @@ public class PaintCanvas extends JPanel {
         
         paintObjects = (Vector)history.lastElement();
         history.removeElement(history.lastElement());
+        repaint();
         
     }
 
