@@ -24,20 +24,40 @@ public class PaintCanvas extends JPanel {
 
     public void setResizeCanvas(int updatedWidth, int updatedHeight){
         setPreferredSize(new Dimension(updatedWidth, updatedHeight));
-
     }
+
+
+    public Dimension getPreferredSize() {
+        int runTimeWidth = 3000;
+        int runTimeHeight = 2400;
+
+        for (Object obj : paintObjects) {
+            PaintObject temp = (PaintObject) obj;
+            Rectangle additionalDimension = temp.getBoundingBox();
+            runTimeWidth = Math.max(runTimeWidth, additionalDimension.x + additionalDimension.width);
+            runTimeHeight = Math.max(runTimeHeight, additionalDimension.y + additionalDimension.height);
+        }
+        Dimension extendedDimension =  new Dimension(runTimeWidth, runTimeHeight);
+         return extendedDimension;
+    }
+
+
     public void paintComponent(Graphics g) {
         
 		((Graphics2D) g).addRenderingHints(
 			new java.awt.RenderingHints(
 				java.awt.RenderingHints.KEY_ANTIALIASING,
 				java.awt.RenderingHints.VALUE_ANTIALIAS_ON));
-        
-        Rectangle clipBounds = g.getClipBounds();
-        g.setColor(Color.white);
-        g.fillRect((int)clipBounds.getX(), (int)clipBounds.getX(), 
-                    (int)clipBounds.getWidth(), (int)clipBounds.getHeight());
-        
+
+        super.paintComponent(g);
+
+//        Rectangle clipBounds = g.getClipBounds();
+//        g.setColor(Color.white);
+//        g.fillRect((int)clipBounds.getX(), (int)clipBounds.getX(),
+//                    (int)clipBounds.getWidth(), (int)clipBounds.getHeight());
+
+
+
         Iterator paintObjectIterator = paintObjects.iterator();
         while(paintObjectIterator.hasNext())
 			try {
@@ -74,13 +94,13 @@ public class PaintCanvas extends JPanel {
     	repaint();
     	
     }
-    
+
     public void addPaintObject(PaintObject newObject) {
-        
+
         history.addElement(new Vector(paintObjects));
         paintObjects.addElement(newObject);
         repaint();
-        
+
     }
     
     public void clear() {
